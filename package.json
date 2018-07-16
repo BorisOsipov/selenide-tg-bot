@@ -1,0 +1,16 @@
+{
+  "name": "telegram-selenide",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "Boris Osipov",
+  "license": "MIT",
+  "dependencies": {
+    "node-telegram-bot-api": "^0.30.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.9.0"
+  }
+}
