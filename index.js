@@ -4,14 +4,17 @@ const config = require('./config');
 const token = process.env.TG_TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 const selenidePhrases = config.selenidePhrases.map(el => el.toLowerCase());
-const watchGroupName = ['qa_automation'];
+const { watchGroupNames } = config;
 
 const forwardMessage = async (tgMessage) => {
   const isMessageToForward = selenidePhrases.find((phrase) => {
+    if (!tgMessage.text) {
+      return false;
+    }
     const text = tgMessage.text.toLowerCase();
     return text.includes(phrase);
   });
-  const isWatchedChannel = watchGroupName.find(name => name === tgMessage.chat.username);
+  const isWatchedChannel = watchGroupNames.find(name => name === tgMessage.chat.username);
 
   if (isWatchedChannel && isMessageToForward) {
     try {
@@ -20,7 +23,7 @@ From: ${tgMessage.from.first_name} ${tgMessage.from.last_name} @${tgMessage.from
 
 Text: ${tgMessage.text}
 
-Link: https://t.me/${watchGroupName}/${tgMessage.message_id}
+Link: https://t.me/${tgMessage.chat.username}/${tgMessage.message_id}
 `;
       await bot.sendMessage(config.forwardToChanelId, message);
     } catch (e) {

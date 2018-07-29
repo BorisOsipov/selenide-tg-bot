@@ -7,5 +7,6 @@
     "селенида",
     "селенидах"
   ],
-  "forwardToChanelId": -1001160928353
+  "forwardToChanelId": -1001160928353,
+  "watchGroupNames":["qa_automation"]
 }
