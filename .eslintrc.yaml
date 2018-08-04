@@ -7,8 +7,6 @@ extends: 'airbnb-base'
 globals:
   assert: true
   browser: true
-  expect: true
-  testState: true
 
 parserOptions:
   ecmaVersion: 2017
@@ -36,10 +34,6 @@ rules:
   new-cap:
     - 'error'
     - newIsCap: true
-      capIsNewExceptions:
-        - 'Given'
-        - 'When'
-        - 'Then'
   require-jsdoc:
     - 'off'
     - require:
