@@ -4,7 +4,7 @@ const config = require('./config');
 const token = process.env.TG_TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 const selenidePhrases = config.selenidePhrases.map(el => el.toLowerCase());
-const { watchGroupNames } = config;
+const { watchGroupNames, ignoredUsername } = config;
 
 const forwardMessage = async (tgMessage) => {
   const isMessageToForward = selenidePhrases.find((phrase) => {
@@ -15,8 +15,9 @@ const forwardMessage = async (tgMessage) => {
     return text.includes(phrase);
   });
   const isWatchedChannel = watchGroupNames.find(name => name === tgMessage.chat.username);
+  const isIgnoredUsername = ignoredUsername.find(name => name === tgMessage.from.username);
 
-  if (isWatchedChannel && isMessageToForward) {
+  if (isWatchedChannel && isMessageToForward && !isIgnoredUsername) {
     try {
       const message = `
 From: ${tgMessage.from.first_name} ${tgMessage.from.last_name} @${tgMessage.from.username}
