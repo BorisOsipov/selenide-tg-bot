@@ -14,7 +14,10 @@ const forwardMessage = async (tgMessage) => {
     const text = tgMessage.text.toLowerCase();
     return text.includes(phrase);
   });
-  const isWatchedChannel = watchGroupNames.find(name => name === tgMessage.chat.username);
+
+  const isWatchedChannel = watchGroupNames.find(name =>
+    (tgMessage.chat.username ? name === tgMessage.chat.username : false));
+
   const isIgnoredUsername = ignoredUsername.find(name => name === tgMessage.from.username);
 
   if (isWatchedChannel && isMessageToForward && !isIgnoredUsername) {
